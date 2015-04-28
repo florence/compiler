@@ -666,7 +666,13 @@
   ;; This should be in Racket somewhere and return all the collection
   ;; paths, rather than just the first as collection-path does.
   (define (collection-paths c)
-    (match-define (list-rest sc more) (map path->string (explode-path c)))
+    (define (path->string* maybe-path)
+      (match maybe-path
+        ['up ".."]
+        ['same "."]
+        [path (write path) (path->string path)]))
+
+    (match-define (list-rest sc more) (map path->string* (explode-path c)))
     (append*
      (for/list ([col (all-collections)]
                 #:when (string=? sc (col-name col)))
