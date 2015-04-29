@@ -670,7 +670,7 @@
       (match maybe-path
         ['up ".."]
         ['same "."]
-        [path (write path) (path->string path)]))
+        [path (path->string path)]))
 
     (match-define (list-rest sc more) (map path->string* (explode-path c)))
     (append*
