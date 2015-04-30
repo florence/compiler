@@ -667,11 +667,7 @@
   ;; paths, rather than just the first as collection-path does.
   (define (collection-paths c)
     (define (path->string* maybe-path)
-      (match maybe-path
-        ['up ".."]
-        ['same "."]
-        [path (path->string path)]))
-
+      (path->string (build-path maybe-path)))
     (match-define (list-rest sc more) (map path->string* (explode-path c)))
     (append*
      (for/list ([col (all-collections)]
